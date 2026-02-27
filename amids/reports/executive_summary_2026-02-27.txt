@@ -1,0 +1,59 @@
+AMIDS Executive Weekly Summary
+================================
+
+Key performance trends:
+- 2026-02-20 email/APAC: CAC=18.38, LTV=176.96, ROI=1.43, Rev growth=765.68%
+- 2026-02-20 email/EMEA: CAC=22.00, LTV=192.79, ROI=0.45, Rev growth=62.29%
+- 2026-02-20 email/NA: CAC=27.20, LTV=292.20, ROI=1.94, Rev growth=62.49%
+- 2026-02-20 organic/APAC: CAC=11.80, LTV=111.36, ROI=1.59, Rev growth=2476.96%
+- 2026-02-20 organic/EMEA: CAC=71.03, LTV=79.25, ROI=0.24, Rev growth=-69.24%
+- 2026-02-20 organic/NA: CAC=22.06, LTV=70.17, ROI=0.22, Rev growth=-84.37%
+- 2026-02-20 paid_search/APAC: CAC=5.17, LTV=71.26, ROI=1.18, Rev growth=0.00%
+- 2026-02-20 paid_search/EMEA: CAC=0.54, LTV=112.62, ROI=9.32, Rev growth=159.17%
+- 2026-02-20 paid_search/NA: CAC=0.30, LTV=138.31, ROI=22.67, Rev growth=471.65%
+- 2026-02-20 paid_social/APAC: CAC=11.19, LTV=165.97, ROI=1.01, Rev growth=215.05%
+- 2026-02-20 paid_social/EMEA: CAC=5.84, LTV=138.77, ROI=4.43, Rev growth=911.08%
+- 2026-02-20 paid_social/NA: CAC=17.34, LTV=208.95, ROI=1.56, Rev growth=85.29%
+- 2026-02-21 email/APAC: CAC=1.28, LTV=120.26, ROI=14.48, Rev growth=28.37%
+- 2026-02-21 email/EMEA: CAC=20.65, LTV=79.92, ROI=0.50, Rev growth=-37.82%
+- 2026-02-21 email/NA: CAC=7.27, LTV=241.70, ROI=8.71, Rev growth=490.84%
+- 2026-02-21 organic/APAC: CAC=4.71, LTV=141.21, ROI=5.46, Rev growth=1.85%
+- 2026-02-21 organic/EMEA: CAC=28.30, LTV=279.16, ROI=1.81, Rev growth=629.61%
+- 2026-02-21 organic/NA: CAC=7.54, LTV=298.36, ROI=4.70, Rev growth=1033.87%
+- 2026-02-21 paid_search/APAC: CAC=7.48, LTV=192.42, ROI=3.51, Rev growth=95.66%
+- 2026-02-21 paid_search/EMEA: CAC=16.00, LTV=130.29, ROI=0.36, Rev growth=-76.18%
+
+Detected anomalies:
+- 2026-02-27 | cac | email:APAC | cac_spike | value=103.56958333333334 z=3.2773789679782457
+- 2026-02-22 | cac | email:EMEA | cac_spike | value=127.68871794871794 z=2.9259391964253543
+- 2026-02-20 | cac | organic:EMEA | cac_spike | value=71.02666666666667 z=2.5905108072652268
+- 2026-02-27 | cac | organic:EMEA | cac_spike | value=69.27956521739131 z=2.2303638425941594
+- 2026-02-21 | cac | paid_search:NA | cac_spike | value=132.56714285714284 z=2.7882126856149156
+- 2026-02-22 | cac | paid_social:EMEA | cac_spike | value=73.73875 z=2.7671285338193323
+- 2026-02-21 | cac | email:APAC | cac_spike | value=53.59294117647059 z=2.568850993710909
+- 2026-02-20 | cac | email:EMEA | cac_spike | value=350.5442857142857 z=3.367841032639772
+- 2026-02-22 | cac | email:NA | cac_spike | value=141.7635 z=2.7261049450829278
+- 2026-02-21 | cac | organic:EMEA | cac_spike | value=69.31400000000001 z=2.0384234069590845
+
+Forecast highlights (next 4 weeks):
+- revenue (baseline) expected around 46361.65 by 2026-03-27
+- leads (baseline) expected around 2670.37 by 2026-03-27
+- revenue (baseline) expected around 71633.47 by 2026-03-27
+- leads (baseline) expected around 2897.62 by 2026-03-27
+- revenue (baseline) expected around 64647.17 by 2026-03-27
+- leads (baseline) expected around 2269.06 by 2026-03-27
+
+Top impact drivers:
+- Anomaly 1 | channel_region=paid_social:EMEA | impact_score=9.73 (rank 1)
+- Anomaly 1 | channel_region=organic:EMEA | impact_score=8.72 (rank 2)
+- Anomaly 1 | channel_region=email:NA | impact_score=8.56 (rank 3)
+- Anomaly 1 | channel_region=organic:APAC | impact_score=4.80 (rank 4)
+- Anomaly 1 | channel_region=paid_social:APAC | impact_score=2.88 (rank 5)
+- Anomaly 2 | channel_region=email:APAC | impact_score=7.81 (rank 1)
+- Anomaly 2 | channel_region=paid_social:NA | impact_score=5.24 (rank 2)
+- Anomaly 2 | channel_region=paid_social:APAC | impact_score=1.54 (rank 3)
+- Anomaly 2 | channel_region=organic:APAC | impact_score=0.88 (rank 4)
+- Anomaly 2 | channel_region=organic:NA | impact_score=0.74 (rank 5)
+
+Budget reallocation suggestions (heuristic):
+- Shift incremental budget into channels with positive revenue growth and ROI above 1.5x; de-prioritise segments with persistent CAC spikes.

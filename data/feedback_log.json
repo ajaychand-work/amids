@@ -1,0 +1,29 @@
+﻿[
+  {
+    "id": "fb001",
+    "created_at": "2026-02-10T11:25:00+00:00",
+    "user_id": "u_017",
+    "feature": "insight_dashboard",
+    "sentiment": "positive",
+    "severity": "low",
+    "message": "The summary view helped identify priority accounts quickly."
+  },
+  {
+    "id": "fb002",
+    "created_at": "2026-02-12T15:45:00+00:00",
+    "user_id": "u_041",
+    "feature": "onboarding_flow",
+    "sentiment": "negative",
+    "severity": "high",
+    "message": "First setup had unclear permissions and blocked activation."
+  },
+  {
+    "id": "fb003",
+    "created_at": "2026-02-14T09:10:00+00:00",
+    "user_id": "u_088",
+    "feature": "risk_prediction",
+    "sentiment": "neutral",
+    "severity": "medium",
+    "message": "Predictions are useful, need confidence explanation in UI."
+  }
+]

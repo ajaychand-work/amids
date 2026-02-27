@@ -1,0 +1,30 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CittaAI Beta MVP Launcher</title>
+  <style>
+    body{font-family:Segoe UI,Tahoma,sans-serif;background:#f4f8fb;color:#0f172a;margin:0;padding:2rem}
+    .card{max-width:780px;margin:auto;background:#fff;border:1px solid #d8e2ef;border-radius:12px;padding:1.2rem}
+    code{background:#eef2ff;padding:.1rem .3rem;border-radius:4px}
+    h1{margin-top:0}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>CittaAI Phase 1 Beta MVP</h1>
+    <p>This project is now a runnable full-stack MVP.</p>
+    <p><strong>Start it:</strong></p>
+    <ol>
+      <li><code>cd cittaai_phase1_beta</code></li>
+      <li><code>python -m venv .venv</code></li>
+      <li><code>.\.venv\Scripts\Activate.ps1</code></li>
+      <li><code>pip install -r requirements.txt</code></li>
+      <li><code>uvicorn backend.app.main:app --reload --port 8000</code></li>
+    </ol>
+    <p>Then open <code>http://127.0.0.1:8000</code>.</p>
+    <p>Frontend source: <code>web/index.html</code><br/>Backend source: <code>backend/app/main.py</code></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CittaAI Beta MVP</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1 id="title">CittaAI Phase 1 Beta MVP</h1>
+    <p id="focus"></p>
+    <div class="meta">
+      <span id="assignee"></span>
+      <span id="date"></span>
+      <span id="health">Service: checking...</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel metrics" id="metrics"></section>
+
+    <section class="panel">
+      <h2>45-Day Milestones</h2>
+      <div id="milestones" class="grid"></div>
+    </section>
+
+    <section class="split">
+      <section class="panel">
+        <h2>Risk Predictor</h2>
+        <form id="predictForm" class="stack">
+          <input name="account_id" placeholder="Account ID" value="beta-acct-17" required />
+          <input name="events_last_7d" type="number" min="0" value="6" required />
+          <input name="active_minutes_last_7d" type="number" min="0" value="78" required />
+          <input name="error_rate" type="number" min="0" max="1" step="0.01" value="0.12" required />
+          <input name="feedback_count_last_30d" type="number" min="0" value="3" required />
+          <button type="submit">Run Prediction</button>
+        </form>
+        <pre id="predictOut">No prediction yet.</pre>
+      </section>
+
+      <section class="panel">
+        <h2>Beta Feedback</h2>
+        <form id="feedbackForm" class="stack">
+          <input name="user_id" placeholder="User ID" value="u_102" required />
+          <input name="feature" placeholder="Feature" value="insight_dashboard" required />
+          <select name="sentiment">
+            <option>positive</option>
+            <option selected>neutral</option>
+            <option>negative</option>
+          </select>
+          <select name="severity">
+            <option>low</option>
+            <option selected>medium</option>
+            <option>high</option>
+          </select>
+          <textarea name="message" rows="3" required>Insights are useful but first-time setup is unclear.</textarea>
+          <button type="submit">Submit Feedback</button>
+        </form>
+        <div id="feedbackOut"></div>
+      </section>
+    </section>
+
+    <section class="panel">
+      <h2>Recent Feedback</h2>
+      <div id="feedbackList"></div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

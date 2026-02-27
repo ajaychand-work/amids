@@ -1,0 +1,54 @@
+﻿{
+  "project": "CittaAI Phase 1 Beta",
+  "date": "2023-10-26",
+  "assignee": "Ajay",
+  "betaFocus": "Deliver a stable, functional, and insightful beta of core AI capabilities in 45 days.",
+  "successMetrics": [
+    "Weekly Active Beta Users >= 35",
+    "Core API P95 latency <= 900ms",
+    "Insight success rate >= 97%",
+    "Feedback response SLA <= 48h"
+  ],
+  "milestones": [
+    {
+      "window": "Days 1-10",
+      "title": "Infrastructure + Core Integration",
+      "deliverables": [
+        "AWS dev/stage setup",
+        "Ingestion pipeline for top 3 sources",
+        "Foundational model service",
+        "v1 API endpoints"
+      ]
+    },
+    {
+      "window": "Days 11-25",
+      "title": "Core Features + UI",
+      "deliverables": [
+        "Three AI capabilities",
+        "Minimal beta dashboard",
+        "Auth + tracking",
+        "In-app feedback flow"
+      ]
+    },
+    {
+      "window": "Days 26-35",
+      "title": "Alpha Testing + Tuning",
+      "deliverables": [
+        "Internal alpha tests",
+        "Critical defect fixes",
+        "Performance tuning",
+        "Observability hardening"
+      ]
+    },
+    {
+      "window": "Days 36-45",
+      "title": "Beta Launch",
+      "deliverables": [
+        "Final regression",
+        "Onboarding docs",
+        "Soft launch",
+        "Daily metric triage"
+      ]
+    }
+  ]
+}
