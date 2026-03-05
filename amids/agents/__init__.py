@@ -6,6 +6,7 @@ from . import rootcause_agent
 from . import forecast_agent
 from . import ai_insight_agent
 from . import dashboard_agent
+from . import summary_stats_agent
 
 __all__ = [
     "data_agent",
@@ -16,5 +17,5 @@ __all__ = [
     "forecast_agent",
     "ai_insight_agent",
     "dashboard_agent",
+    "summary_stats_agent",
 ]
-

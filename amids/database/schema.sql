@@ -103,3 +103,24 @@ create table if not exists execution_log (
     details text
 );
 
+
+create table if not exists data_quality_log (
+    id integer primary key autoincrement,
+    run_date text not null,
+    check_name text not null,
+    status text not null,
+    observed_value real,
+    threshold_value real,
+    details text,
+    created_at text not null default (datetime('now'))
+);
+
+
+create table if not exists dataset_summary_daily (
+    id integer primary key autoincrement,
+    run_date text not null,
+    dataset_name text not null,
+    metric_name text not null,
+    value real not null,
+    created_at text not null default (datetime('now'))
+);

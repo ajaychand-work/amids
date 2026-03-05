@@ -5,7 +5,7 @@ import sys
 import pandas as pd
 import streamlit as st
 
-# Ensure project root is on sys.path so `amids` package can be imported
+# Ensure project root is on sys.path so `amids` package can be imported.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
@@ -59,16 +59,47 @@ def load_forecasts():
         )
 
 
+@st.cache_data(ttl=300)
+def load_quality_checks():
+    with get_conn() as conn:
+        return pd.read_sql(
+            """
+            select run_date, check_name, status, observed_value, threshold_value, details, created_at
+            from data_quality_log
+            order by created_at desc
+            """,
+            conn,
+        )
+
+
+@st.cache_data(ttl=300)
+def load_dataset_summary():
+    with get_conn() as conn:
+        return pd.read_sql(
+            """
+            select run_date, dataset_name, metric_name, value, created_at
+            from dataset_summary_daily
+            order by run_date desc, metric_name
+            """,
+            conn,
+        )
+
+
 def main():
     st.set_page_config(page_title="AMIDS Marketing Intelligence", layout="wide")
-    st.title("AMIDS – Marketing Intelligence Dashboard")
+    st.title("AMIDS - Marketing Intelligence Dashboard")
 
     if not DB_PATH.exists():
         st.warning("No AMIDS database found yet. Run the orchestrator first.")
         return
 
-    tab_kpi, tab_anom, tab_forecast = st.tabs(
-        ["KPI Overview", "Anomalies & Root Cause", "Forecasts"]
+    tab_kpi, tab_anom, tab_forecast, tab_quality = st.tabs(
+        [
+            "KPI Overview",
+            "Anomalies & Root Cause",
+            "Forecasts",
+            "Data Quality & Monitoring",
+        ]
     )
 
     with tab_kpi:
@@ -93,7 +124,7 @@ def main():
             if region_filter:
                 df = df[df["region"].isin(region_filter)]
 
-            st.dataframe(df.tail(50), use_container_width=True)
+            st.dataframe(df.tail(100), use_container_width=True)
 
             st.markdown("##### Revenue Growth Over Time")
             if not df.empty:
@@ -115,7 +146,7 @@ def main():
         if anomalies.empty:
             st.info("No anomalies detected yet.")
         else:
-            st.dataframe(anomalies.head(100), use_container_width=True)
+            st.dataframe(anomalies.head(200), use_container_width=True)
 
     with tab_forecast:
         st.subheader("Forecast Snapshots")
@@ -123,9 +154,23 @@ def main():
         if forecasts.empty:
             st.info("No forecasts stored yet.")
         else:
-            st.dataframe(forecasts[["created_at", "metric", "scenario"]].head(20))
+            st.dataframe(forecasts[["created_at", "metric", "scenario"]].head(30))
+
+    with tab_quality:
+        st.subheader("Data Quality Checks")
+        checks = load_quality_checks()
+        if checks.empty:
+            st.info("No validation records available yet.")
+        else:
+            st.dataframe(checks.head(200), use_container_width=True)
+
+        st.subheader("Dataset Summary Metrics")
+        summaries = load_dataset_summary()
+        if summaries.empty:
+            st.info("No dataset summary metrics available yet.")
+        else:
+            st.dataframe(summaries.head(200), use_container_width=True)
 
 
 if __name__ == "__main__":
     main()
-

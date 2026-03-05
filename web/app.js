@@ -1,4 +1,4 @@
-﻿const API = "";
+const API = "";
 
 async function getJson(path, options) {
   const res = await fetch(`${API}${path}`, options);
@@ -39,12 +39,81 @@ function renderFeedback(rows) {
   `).join("");
 }
 
+function renderKpiSummary(payload) {
+  const el = document.getElementById("kpiSummary");
+  const roi = payload.summary_stats?.roi || {};
+  const cac = payload.summary_stats?.cac || {};
+  const cvr = payload.summary_stats?.lead_conversion_rate || {};
+  el.innerHTML = `
+    <div class="grid">
+      <article class="card"><strong>ROI Mean</strong><div>${roi.mean ?? "n/a"}</div></article>
+      <article class="card"><strong>CAC Median</strong><div>${cac.median ?? "n/a"}</div></article>
+      <article class="card"><strong>Lead CVR Mean</strong><div>${cvr.mean ?? "n/a"}</div></article>
+      <article class="card"><strong>Segments</strong><div>${payload.latest_segments?.length ?? 0}</div></article>
+    </div>
+  `;
+}
+
+function renderTrendSummary(payload) {
+  const el = document.getElementById("trendSummary");
+  const stats = payload.summary_stats || {};
+  const anomalies = payload.anomalies || [];
+  el.innerHTML = `
+    <div class="grid">
+      <article class="card"><strong>Revenue Mean</strong><div>${stats.mean ?? "n/a"}</div></article>
+      <article class="card"><strong>Revenue Variance</strong><div>${stats.variance ?? "n/a"}</div></article>
+      <article class="card"><strong>Anomalies</strong><div>${anomalies.length}</div></article>
+      <article class="card"><strong>Observation Count</strong><div>${stats.count ?? 0}</div></article>
+    </div>
+  `;
+}
+
+function renderPerformanceSummary(payload) {
+  const el = document.getElementById("performanceSummary");
+  const riskRows = payload.risk_distribution || [];
+  const monitorRows = payload.kpi_monitoring || [];
+
+  const riskHtml = riskRows.map((r) => `
+    <div class="row">
+      <strong>${r.risk_band}</strong> • segments: ${r.segments} • avg risk: ${r.avg_risk_score}
+    </div>
+  `).join("");
+
+  const monitorHtml = monitorRows.map((m) => `
+    <div class="row">
+      <strong>${m.metric}</strong> = ${m.value} • status: <span class="tag ${m.status === "critical" ? "high" : "low"}">${m.status}</span>
+    </div>
+  `).join("");
+
+  el.innerHTML = `
+    <h3>Risk Score Distribution</h3>
+    ${riskHtml || "<p>No risk distribution data available.</p>"}
+    <h3>KPI Monitoring</h3>
+    ${monitorHtml || "<p>No KPI monitoring data available.</p>"}
+  `;
+}
+
+function renderTopMetrics(metrics) {
+  const metricsEl = document.getElementById("metrics");
+  metricsEl.innerHTML = [
+    metricCard("Predictions", metrics.prediction_count),
+    metricCard("Feedback Total", metrics.feedback_total),
+    metricCard("Negative Feedback", metrics.feedback_negative),
+    metricCard("High Severity", metrics.feedback_high_severity),
+    metricCard("Risk Mean", metrics.risk_score_mean ?? "n/a"),
+    metricCard("SLA (hrs)", metrics.feedback_response_sla_hours)
+  ].join("");
+}
+
 async function boot() {
-  const [health, roadmap, metrics, feedback] = await Promise.all([
+  const [health, roadmap, metrics, feedback, kpis, trends, performance] = await Promise.all([
     getJson("/api/health"),
     getJson("/api/roadmap"),
     getJson("/api/metrics"),
-    getJson("/api/feedback")
+    getJson("/api/feedback"),
+    getJson("/api/dashboard/kpis"),
+    getJson("/api/dashboard/trends"),
+    getJson("/api/dashboard/performance")
   ]);
 
   document.getElementById("title").textContent = roadmap.project;
@@ -53,33 +122,27 @@ async function boot() {
   document.getElementById("date").textContent = `Date: ${roadmap.date}`;
   document.getElementById("health").textContent = `Service: ${health.status}`;
 
-  const metricsEl = document.getElementById("metrics");
-  metricsEl.innerHTML = [
-    metricCard("Predictions", metrics.prediction_count),
-    metricCard("Feedback Total", metrics.feedback_total),
-    metricCard("Negative Feedback", metrics.feedback_negative),
-    metricCard("High Severity", metrics.feedback_high_severity),
-    metricCard("SLA (hrs)", metrics.feedback_response_sla_hours)
-  ].join("");
-
+  renderTopMetrics(metrics);
   renderMilestones(roadmap.milestones || []);
   renderFeedback(feedback || []);
+  renderKpiSummary(kpis);
+  renderTrendSummary(trends);
+  renderPerformanceSummary(performance);
 }
 
 async function refreshPanels() {
-  const [metrics, feedback] = await Promise.all([
+  const [metrics, feedback, kpis, trends, performance] = await Promise.all([
     getJson("/api/metrics"),
-    getJson("/api/feedback")
+    getJson("/api/feedback"),
+    getJson("/api/dashboard/kpis"),
+    getJson("/api/dashboard/trends"),
+    getJson("/api/dashboard/performance")
   ]);
-  const metricsEl = document.getElementById("metrics");
-  metricsEl.innerHTML = [
-    metricCard("Predictions", metrics.prediction_count),
-    metricCard("Feedback Total", metrics.feedback_total),
-    metricCard("Negative Feedback", metrics.feedback_negative),
-    metricCard("High Severity", metrics.feedback_high_severity),
-    metricCard("SLA (hrs)", metrics.feedback_response_sla_hours)
-  ].join("");
+  renderTopMetrics(metrics);
   renderFeedback(feedback || []);
+  renderKpiSummary(kpis);
+  renderTrendSummary(trends);
+  renderPerformanceSummary(performance);
 }
 
 document.getElementById("predictForm").addEventListener("submit", async (e) => {
